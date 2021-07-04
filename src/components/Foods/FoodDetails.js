@@ -5,18 +5,18 @@ import { compose } from 'redux'
 import { Button } from 'react-bootstrap';
 
 
-const ProjectDetails = (props) => {
-  const { project } = props;
-  if (project) {
+const FoodDetails = (props) => {
+  const { food } = props;
+  if (food) {
     return (
-      <div className="container section project-details">
+      <div className="container section food-details">
         <div className="card z-depth-0">
           <div className="card-content">
-            <span className="card-title">{project.title}</span>
-            <p>{project.content}</p>
+            <span className="card-title">{food.title}</span>
+            <p>{food.content}</p>
           </div>
           <div className="card-action grey lighten-4 grey-text">
-            <div>Posted by {project.authorFirstName} {project.authorLastName}</div>
+            <div>Posted by {food.authorFirstName} {food.authorLastName}</div>
             <div>2nd September, 2am</div>
           </div>
         </div>
@@ -25,7 +25,7 @@ const ProjectDetails = (props) => {
   } else {
     return (
       <div className="container center">
-        <p>Loading project...</p>
+        <p>Loading food...</p>
       </div>
     )
   }
@@ -34,10 +34,10 @@ const ProjectDetails = (props) => {
 const mapStateToProps = (state, ownProps) => {
   // console.log(state);
   const id = ownProps.match.params.id;
-  const projects = state.firestore.data.projects;
-  const project = projects ? projects[id] : null
+  const foods = state.firestore.data.foods;
+  const food = foods ? foods[id] : null
   return {
-    project: project
+    food: food
   }
 }
 
@@ -47,6 +47,6 @@ const mapStateToProps = (state, ownProps) => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([{
-    collection: 'projects'
+    collection: 'foods'
   }])
-)(ProjectDetails)
+)(FoodDetails)

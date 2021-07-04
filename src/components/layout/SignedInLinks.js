@@ -1,7 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { signIn } from '../../store/actions/authAction'
 
-const SignedInLinks = () => {
+const SignedInLinks = (props) => {
+  const { signIn } = props;
+  
   return (
     <div>
       <ul className="right">
@@ -11,6 +14,12 @@ const SignedInLinks = () => {
       </ul>
     </div>
   )
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn: (creds) => dispatch(signIn(creds))
+  }
+
 }
 
 export default SignedInLinks

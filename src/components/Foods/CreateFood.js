@@ -1,18 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createProject } from '../../store/actions/projectActions'
+import { createFood } from '../../store/actions/foodActions'
 import { storage } from "../../config/fbConfig"
 
-
 class CreateFood extends Component {
-
-
   state = {
     title: '',
     content: '',
     url: ''
   }
-
 
   onTitleChange = (e) => {
     this.setState({ title: e.target.value });
@@ -38,7 +34,7 @@ class CreateFood extends Component {
         .then((fireBaseUrl) => {
           this.setState({ file: null });
           this.setState({ url: fireBaseUrl });
-          this.props.createProject(this.state);
+          this.props.createFood(this.state);
         });
     });
 
@@ -49,15 +45,15 @@ class CreateFood extends Component {
     return (
       <div className="container">
         <form className="white" onSubmit={this.handleSubmit}>
-          <h5 className="grey-text text-darken-3">Create a New Project</h5>
+          <h5 className="grey-text text-darken-3">Create a New food</h5>
           <div className="input-field">
             <input type="text" id='title' onChange={this.onTitleChange} />
-            <label htmlFor="title">Project Title</label>
+            <label htmlFor="title">food Title</label>
           </div>
 
           <div className="input-field">
             <textarea id="content" className="materialize-textarea" onChange={this.onContentChange}></textarea>
-            <label htmlFor="content">Project Content</label>
+            <label htmlFor="content">food Content</label>
           </div>
           <div className="input-field">
             <input type="file" id='file' onChange={this.onFileChange} />
@@ -74,7 +70,7 @@ class CreateFood extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createProject: (food) => dispatch(createProject(food))
+    createFood: (food) => dispatch(createFood(food))
   }
 }
 

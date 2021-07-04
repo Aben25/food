@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Navbar from './components/layout/Navbar'
 import Dashboard from './components/dashboard/Dashboard'
-import ProjectDetails from './components/projects/ProjectDetails'
+import FoodDetails from './components/Foods/FoodDetails'
 import SignIn from './components/auth/SignIn'
 import SignUp from './components/auth/SignUp'
-import CreateProject from './components/projects/CreateProject'
+import CreateFood from './components/Foods/CreateFood';
 
 class App extends Component {
   render() {
@@ -14,11 +14,11 @@ class App extends Component {
         <div className="App">
           <Navbar />
           <Switch>
-            <Route exact path='/'component={Dashboard} />
-            <Route path='/project/:id' component={ProjectDetails} />
+            <Route exact path='/' component={Dashboard} />
+            <Route path='/food/:id' component={FoodDetails} />
             <Route path='/signin' component={SignIn} />
             <Route path='/signup' component={SignUp} />
-            <Route path='/create' component={CreateProject} />
+            <Route path='/create' component={CreateFood} />
           </Switch>
         </div>
       </BrowserRouter>

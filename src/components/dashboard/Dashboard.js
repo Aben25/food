@@ -1,26 +1,26 @@
 import React, { Component } from 'react'
-import ProjectList from '../Foods/ProjectList'
+import FoodList from '../Foods/FoodList'
 import Notifications from './Notifications'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
-import { deleteProject } from '../../store/actions/projectActions'
+import { deleteFood } from '../../store/actions/foodActions'
 
 class Dashboard extends Component {
 
   render() {  
     // console.log(this.props);
-    const { projects, deleteProject} = this.props;
+    const { foods, deleteFood} = this.props;
     
     return (
       
       <div className="dashboard container">
         <div className="row">
-          <div className="col- s m6">
-            <ProjectList projects={projects}
-              deleteProject={deleteProject}/>
+          <div className="col-8">
+            <FoodList foods={foods}
+              deleteFood={deleteFood}/>
           </div>
-          <div className="col s12 m5 offset-m1">
+          <div className="col-4">
             <Notifications />
           </div>
         </div>
@@ -32,19 +32,19 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
   // console.log(state);
   return {
-    projects: state.firestore.ordered.projects
+    foods: state.firestore.ordered.foods
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteProject: (id) =>dispatch(deleteProject(id))
+    deleteFood: (id) =>dispatch(deleteFood(id))
   }
 }
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([
-    { collection: 'projects' }
+    { collection: 'foods' }
   ])
 )(Dashboard)
