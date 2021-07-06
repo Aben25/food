@@ -1,12 +1,15 @@
 export const createFood = (food) => {
-  return (dispatch, getState, { getFirestore }) => {
+  return (dispatch, getState, { getFirestore , getFirebase}) => {
     // make async call to database
     const firestore = getFirestore();
+    const profile = getState().getFirebase.profile;
+    const authorId = getState().getFirebase.authorId;
+  
     firestore.collection('foods').add({
       title: food.title,
       url: food.url,
       content: food.content,
-      authorFirstName: 'Net',
+      authorFirstName: profile.name,
       authorLastName: 'Ninja',
       authorId: 12345,
       createdAt: new Date()
