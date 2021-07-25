@@ -2,11 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
+import { Redirect } from 'react-router-dom'
+import moment from 'moment'
 import { Button } from 'react-bootstrap';
 
 
+
 const FoodDetails = (props) => {
-  const { food } = props;
+  const { food, auth } = props;
+  if (!auth.uid) return <Redirect to='signin' /> 
+
   if (food) {
     return (
       <div className="container section food-details">
@@ -37,12 +42,10 @@ const mapStateToProps = (state, ownProps) => {
   const foods = state.firestore.data.foods;
   const food = foods ? foods[id] : null
   return {
-    food: food
+    food: food,
+    auth: state.firebase.auth
   }
 }
-
-
-
 
 export default compose(
   connect(mapStateToProps),
@@ -50,3 +53,6 @@ export default compose(
     collection: 'foods'
   }])
 )(FoodDetails)
+
+
+

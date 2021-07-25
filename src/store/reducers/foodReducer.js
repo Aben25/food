@@ -1,4 +1,6 @@
-const initState = {}
+const initState = {
+
+}
 
 const foodReducer = (state = initState, action) => {
   switch (action.type) {

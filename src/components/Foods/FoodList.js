@@ -1,19 +1,48 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import FoodSummary from './FoodSummary'
-import { Link } from 'react-router-dom'
+import { firestoreConnect } from 'react-redux-firebase'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 
-const FoodList = ({foods, deleteFood}) => {
+
+const FoodList = ({ cart, foods, deleteFood }) => {
+
+
+
+
+  
+
+  useEffect(() => {
+    // Good!
+    console.log('this is from food list', cart)
+  }, []);
   return (
+    
     <div className="food-list section">
-      { foods && foods.map(food => {
+       
+      {foods && foods.map(food => {
         return (
-            <FoodSummary food={food}
-            deleteFood={deleteFood}/>
-         
+          <FoodSummary cart={cart} food={food}
+            deleteFood={deleteFood} />
         )
-      })}  
+      })}
     </div>
   )
 }
 
-export default FoodList
+export default compose(
+  firestoreConnect(props => {
+    return [{
+      collection: "users",
+      doc: `${props.id}`,
+      subcollections: [{ collection: "cart" }],
+      storeAs: `${props.ui}-cart`
+    }];
+  }),
+  connect(({ firestore }, props) => {
+
+    return {
+      cart: firestore.ordered[`${props.ui}-cart`] || []
+    };
+  })
+)(FoodList);
